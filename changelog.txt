@@ -1,0 +1,6 @@
+=== 0.5 ===
+Initial release.
+* MapWrapper can hold any number of engines (possibly customly implemented).
+* Google and Yandex engines.
+* Basic switch control added to the engines.
+* Wrappers for setCenter, setZoom and couple of constructor options.

@@ -1,0 +1,9 @@
+FEATURE REQUESTS:
+* Deferred initialization of engine. Don't initialize all engines on startup, initialize an engine on the engine select.
+* Add ability to customize switch controls: style, position, using own implementation.
+* Add wrappers to addMarker, addPolyline, event handling.
+
+BUGS:
+
+DONE:
+0.5 - Make MapWrapper interface more expandable to let user select its own engine.
