@@ -3,3 +3,7 @@ function GeoPoint(lat, lng) {
   this.lng = lng
 }
 
+function Marker(lat, lng, style) {
+  this.geopoint = new GeoPoint(lat, lng)
+  this.style = style
+}

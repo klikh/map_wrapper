@@ -63,7 +63,20 @@ GoogleEngine.prototype = {
 
   setZoom : function(zoom) {
     this.map.setZoom(zoom)
+  },
+  
+  addMarker : function(marker) {
+    this.map.addOverlay(this.convertMarker(marker))
+  },
+  
+  convertMarker : function(marker) {
+    return new GMarker(this.convertGeopoint(marker.geopoint))
+  },
+  
+  convertGeopoint : function(geopoint) {
+    return new GLatLng(geopoint.lat, geopoint.lng)
   }
+  
 }
 
 

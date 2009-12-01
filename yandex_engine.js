@@ -44,7 +44,7 @@ YandexEngine.prototype = {
   },
 
   setCenter : function(geopoint) {
-    this.map.setCenter(new YMaps.GeoPoint(geopoint.lng, geopoint.lat)) 
+    this.map.setCenter(this.convertGeopoint(geopoint)) 
   },
 
   getZoom : function() {
@@ -53,6 +53,18 @@ YandexEngine.prototype = {
 
   setZoom : function(zoom) {
     this.map.setZoom(zoom)
+  },
+  
+  addMarker : function(marker) {
+    this.map.addOverlay(this.convertMarker(marker))
+  },
+  
+  convertMarker : function(marker) {
+    return new YMaps.Placemark(this.convertGeopoint(marker.geopoint))
+  },
+  
+  convertGeopoint : function(geopoint) {
+    return new YMaps.GeoPoint(geopoint.lng, geopoint.lat)
   }
   
 }
