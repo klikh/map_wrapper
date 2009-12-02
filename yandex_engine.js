@@ -55,14 +55,6 @@ YandexEngine.prototype = {
     this.map.setZoom(zoom)
   },
   
-  addMarker : function(marker) {
-    this.map.addOverlay(this.convertMarker(marker))
-  },
-  
-  convertMarker : function(marker) {
-    return new YMaps.Placemark(this.convertGeopoint(marker.geopoint))
-  },
-  
   convertGeopoint : function(geopoint) {
     return new YMaps.GeoPoint(geopoint.lng, geopoint.lat)
   }

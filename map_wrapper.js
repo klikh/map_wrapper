@@ -65,12 +65,6 @@ MapWrapper.prototype.setZoom = function(zoom) {
   this.activeEngine.setZoom(zoom)
 }
 
-MapWrapper.prototype.addMarker = function(marker) {
-  for (i = 0; i < this.engines.length; i++) {
-    this.engines[i].addMarker(marker)
-  }
-}
-
 MapWrapper.prototype._makeMapDiv = function(id, mapID) {
   var div = document.createElement('div')
   div.setAttribute('id', id)
