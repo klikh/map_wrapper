@@ -8,7 +8,7 @@ YandexEngine.prototype = {
 
   initialize : function() {
     this.map = new YMaps.Map(this.div)
-    this.switchControl = new YandexSwitchControl(this.mapWrapper)
+    this.switchControl = new YandexSwitchControl(this)
     this.map.addControl(this.switchControl)
   },
   
@@ -69,8 +69,9 @@ YandexEngine.prototype = {
   
 }
 
-function YandexSwitchControl (mapWrapper) {
-  this.mapWrapper = mapWrapper
+function YandexSwitchControl(engine) {
+  this.engine = engine
+  this.mapWrapper = this.engine.mapWrapper
   this.element = document.createElement("div")
   this.element.style.position = 'absolute'
   this.element.style.zIndex = '1000'
@@ -89,14 +90,17 @@ YandexSwitchControl.prototype = {
   },
 
   addEngine: function(engine) {
-    var div = document.createElement("div")
-    this._setButtonStyle(div)
-    this.element.appendChild(div)
-    div.appendChild(document.createTextNode(engine.codename))
+    if (this.engine == engine) { return } // don't add control to switch to this engine
+    
+    var engineButton = document.createElement("div")
+    this.element.appendChild(engineButton)
+    engineButton.appendChild(document.createTextNode(engine.codename))
+
+    this._setButtonStyle(engineButton)
     var _this = this
-    div.onclick  = function () {
+    engineButton.onclick  = function () {
       _this.mapWrapper.selectEngine(engine)
-    };
+    }
   },
   
   _makeDiv: function(index) {
@@ -104,8 +108,8 @@ YandexSwitchControl.prototype = {
   },
 
   _setButtonStyle: function (button) {
-    style = {textDecoration: 'underline', 
-             color: '#0000cc', 
+    style = {textDecoration: 'underline',
+             color: 'darkblue', 
              backgroundColor: 'white', 
              font: 'small Arial',
              border: '1px solid black',

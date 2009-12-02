@@ -40,7 +40,7 @@ GoogleEngine.prototype = {
   },
   
   _createSwitchControl : function() {
-    this.switchControl = new GoogleSwitchControl(this.mapWrapper) 
+    this.switchControl = new GoogleSwitchControl(this) 
     this.map.addControl(this.switchControl)
   },
 
@@ -80,8 +80,9 @@ GoogleEngine.prototype = {
 }
 
 
-function GoogleSwitchControl(mapWrapper) {
-  this.mapWrapper = mapWrapper
+function GoogleSwitchControl(engine) {
+  this.engine = engine
+  this.mapWrapper = this.engine.mapWrapper
   this.container = document.createElement("div")
   this.container.hide()
 }
@@ -97,6 +98,8 @@ GoogleSwitchControl.prototype.initialize = function(gmap) {
 }
 
 GoogleSwitchControl.prototype.addEngine = function(engine) {
+  if (this.engine == engine) { return } // don't add control to switch to this engine
+  
   var div = document.createElement("div")
   this._setButtonStyle(div)
   this.container.appendChild(div);
