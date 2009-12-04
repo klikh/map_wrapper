@@ -21,4 +21,5 @@ Engine.prototype.removeSwitchControl = function(switchControl) {
       this.switchControls.splice(0, 1)
     }
   }
+  return this
 }
