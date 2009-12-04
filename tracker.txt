@@ -1,7 +1,7 @@
 FEATURE REQUESTS:
 * Deferred initialization of engine. Don't initialize all engines on startup, initialize an engine on the engine select.
 * Add ability to customize switch controls: style, position, using own implementation.
-* Add wrappers to addMarker, addPolyline, event handling.
+* Add wrapper to handle map events.
 
 BUGS:
 
