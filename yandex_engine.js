@@ -51,7 +51,8 @@ YandexEngine.prototype.getCenter = function() {
 }
 
 YandexEngine.prototype.setCenter = function(geopoint) {
-  this.map.setCenter(this.convertGeopoint(geopoint)) 
+  this.map.setCenter(new YMaps.GeoPoint(geopoint.lng, geopoint.lat))
+  return this
 }
 
 YandexEngine.prototype.getZoom = function() {
@@ -60,10 +61,7 @@ YandexEngine.prototype.getZoom = function() {
 
 YandexEngine.prototype.setZoom = function(zoom) {
   this.map.setZoom(zoom)
-}
-  
-YandexEngine.prototype.convertGeopoint = function(geopoint) {
-  return new YMaps.GeoPoint(geopoint.lng, geopoint.lat)
+  return this
 }
   
 
