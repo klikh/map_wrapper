@@ -1,76 +1,76 @@
-function GoogleEngine() {}
-GoogleEngine.prototype = {
-  mapWrapper : null,
-  div : null,
-  map : null,
-  codename : "google",
-  maxZoom : 17,
-
-  initialize : function() {
-    this.map = new GMap2(this.div)
-  },
-
-  setOptions : function(options) {
-    if (options["zoomControl"]) { 
-      this.map.addControl(new GSmallZoomControl3D())
-    }
-    if (options["moveControl"]) {
-      this.map.addControl(new GLargeMapControl3D())
-    }
-    if (options["typeControl"]) {
-      this.map.addControl(new GMapTypeControl())
-    } 
-    if (options["scrollToZoom"]) {
-      this.map.enableScrollWheelZoom()
-    }
-
-    if (options["switchControl"]) {
-      if (!this.switchControl) { 
-        this._createSwitchControl()
-      }
-      this.switchControl.container.show()
-    }
-  },
-  
-  addEngineToSwitchControl : function(engine) {
-    if (!this.switchControl) { 
-      this._createSwitchControl
-    }
-    this.switchControl.addEngine(engine)
-  },
-  
-  _createSwitchControl : function() {
-    this.switchControl = new GoogleSwitchControl(this) 
-    this.map.addControl(this.switchControl)
-  },
-
-  getNativeControl : function() {
-    return this.map
-  },
-  
-  getCenter : function() {
-    var gp = this.map.getCenter()
-    return new GeoPoint(gp.lat(), gp.lng())
-  },
-
-  setCenter : function(geopoint) {
-    this.map.setCenter(new GLatLng(geopoint.lat, geopoint.lng))
-  },
-  
-  getZoom : function() {
-    return this.map.getZoom()
-  },
-
-  setZoom : function(zoom) {
-    this.map.setZoom(zoom)
-  },
-  
-  convertGeopoint : function(geopoint) {
-    return new GLatLng(geopoint.lat, geopoint.lng)
-  }
-  
+function GoogleEngine() {
+  this.mapWrapper = null
+  this.div = null
+  this.map = null
+  this.codename = "google"
+  this.maxZoom = 17
 }
 
+GoogleEngine.prototype = new Engine()
+
+GoogleEngine.prototype.initialize = function() {
+  this.map = new GMap2(this.div)
+}
+
+GoogleEngine.prototype.setOptions = function(options) {
+  if (options["zoomControl"]) { 
+    this.map.addControl(new GSmallZoomControl3D())
+  }
+  if (options["moveControl"]) {
+    this.map.addControl(new GLargeMapControl3D())
+  }
+  if (options["typeControl"]) {
+    this.map.addControl(new GMapTypeControl())
+  } 
+  if (options["scrollToZoom"]) {
+    this.map.enableScrollWheelZoom()
+  }
+
+  if (options["switchControl"]) {
+    if (!this.switchControl) { 
+      this._createSwitchControl()
+    }
+    this.switchControl.container.show()
+  }
+}
+  
+GoogleEngine.prototype.addEngineToSwitchControl = function(engine) {
+  if (!this.switchControl) { 
+    this._createSwitchControl
+  }
+  this.switchControl.addEngine(engine)
+}
+  
+GoogleEngine.prototype._createSwitchControl = function() {
+  this.switchControl = new GoogleSwitchControl(this) 
+  this.map.addControl(this.switchControl)
+}
+
+GoogleEngine.prototype.getNativeControl = function() {
+  return this.map
+}
+  
+GoogleEngine.prototype.getCenter = function() {
+  var gp = this.map.getCenter()
+  return new GeoPoint(gp.lat(), gp.lng())
+}
+
+GoogleEngine.prototype.setCenter = function(geopoint) {
+  this.map.setCenter(new GLatLng(geopoint.lat, geopoint.lng))
+}
+  
+GoogleEngine.prototype.getZoom = function() {
+  return this.map.getZoom()
+}
+
+GoogleEngine.prototype.setZoom = function(zoom) {
+  this.map.setZoom(zoom)
+}
+  
+GoogleEngine.prototype.convertGeopoint = function(geopoint) {
+  return new GLatLng(geopoint.lat, geopoint.lng)
+}
+  
 
 function GoogleSwitchControl(engine) {
   this.engine = engine
