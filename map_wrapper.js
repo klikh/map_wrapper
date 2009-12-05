@@ -31,11 +31,12 @@ MapWrapper.prototype.addEngine = function(engine) {
   engine.mapWrapper = this
   engine.initialize()
 
-  // add this engine to the switch controls of all previously created engines
+  // add this engine to the all switch controls of each of previously created engines
   for (var i = 0; i < this.engines.length; i++) {
-    this.engines[i].switchControl.addEngine(engine)
+    for (var j = 0; j < this.engines[i].switchControls.length; j++) {
+      this.engines[i].switchControls[j].addEngine(engine)
+    }
   }
-  
   
   this.engines.push(engine)
   engine.setCenter(this.initialCenter)
