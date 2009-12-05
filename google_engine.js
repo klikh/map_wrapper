@@ -4,12 +4,14 @@ function GoogleEngine() {
   this.map = null
   this.codename = "google"
   this.maxZoom = 17
+  this.switchControls = []
 }
 
 GoogleEngine.prototype = new Engine()
 
 GoogleEngine.prototype.initialize = function() {
   this.map = new GMap2(this.div)
+  return this.map
 }
 
 GoogleEngine.prototype.setOptions = function(options) {
@@ -25,31 +27,24 @@ GoogleEngine.prototype.setOptions = function(options) {
   if (options["scrollToZoom"]) {
     this.map.enableScrollWheelZoom()
   }
-
   if (options["switchControl"]) {
-    if (!this.switchControl) { 
-      this._createSwitchControl()
-    }
-    this.switchControl.container.show()
+    this.addSwitchControl(new GoogleSwitchControl(this))
   }
+  return this
 }
   
-GoogleEngine.prototype.addEngineToSwitchControl = function(engine) {
-  if (!this.switchControl) { 
-    this._createSwitchControl
-  }
-  this.switchControl.addEngine(engine)
-}
-  
-GoogleEngine.prototype._createSwitchControl = function() {
-  this.switchControl = new GoogleSwitchControl(this) 
-  this.map.addControl(this.switchControl)
-}
-
 GoogleEngine.prototype.getNativeControl = function() {
   return this.map
 }
   
+GoogleEngine.prototype.addSwitchControlOnMap = function(switchControl) {
+  this.map.addControl(switchControl)
+}
+  
+GoogleEngine.prototype.removeSwitchControlFromMap = function(switchControl) {
+  this.map.removeControl(switchControl)
+}
+
 GoogleEngine.prototype.getCenter = function() {
   var gp = this.map.getCenter()
   return new GeoPoint(gp.lat(), gp.lng())
@@ -57,6 +52,7 @@ GoogleEngine.prototype.getCenter = function() {
 
 GoogleEngine.prototype.setCenter = function(geopoint) {
   this.map.setCenter(new GLatLng(geopoint.lat, geopoint.lng))
+  return this
 }
   
 GoogleEngine.prototype.getZoom = function() {
@@ -65,6 +61,7 @@ GoogleEngine.prototype.getZoom = function() {
 
 GoogleEngine.prototype.setZoom = function(zoom) {
   this.map.setZoom(zoom)
+  return this
 }
   
 GoogleEngine.prototype.convertGeopoint = function(geopoint) {
@@ -76,14 +73,13 @@ function GoogleSwitchControl(engine) {
   this.engine = engine
   this.mapWrapper = this.engine.mapWrapper
   this.container = document.createElement("div")
-  this.container.hide()
 }
 
 GoogleSwitchControl.prototype = new GControl()
 
 GoogleSwitchControl.prototype.initialize = function(gmap) {
   for (var i = 0; i < this.mapWrapper.engines.length; i++) {
-    this._makeDiv(i, this.container)
+    this._makeDiv(i)
   }
   gmap.getContainer().appendChild(this.container)
   return this.container
@@ -96,13 +92,13 @@ GoogleSwitchControl.prototype.addEngine = function(engine) {
   this._setButtonStyle(div)
   this.container.appendChild(div);
   div.appendChild(document.createTextNode(engine.codename));
-  var tzc = this
+  var _this = this
   GEvent.addDomListener(div, "click", function() {
-    tzc.mapWrapper.selectEngine(engine)
+    _this.mapWrapper.selectEngine(engine)
   });
 }
 
-GoogleSwitchControl.prototype._makeDiv = function(engine_index, container) {
+GoogleSwitchControl.prototype._makeDiv = function(engine_index) {
   this.addEngine(this.mapWrapper.engines[engine_index])
 }
 
@@ -111,14 +107,18 @@ GoogleSwitchControl.prototype.getDefaultPosition = function() {
 }
 
 GoogleSwitchControl.prototype._setButtonStyle = function(button) {
-  button.style.textDecoration = "underline";
-  button.style.color = "#0000cc";
-  button.style.backgroundColor = "white";
-  button.style.font = "small Arial";
-  button.style.border = "1px solid black";
-  button.style.padding = "2px";
-  button.style.marginBottom = "3px";
-  button.style.textAlign = "center";
-  button.style.width = "6em";
-  button.style.cursor = "pointer";
+  style = { 
+    textDecoration: 'underline',
+    color: 'darkblue', 
+    backgroundColor: 'white', 
+    font: 'small Verdana',
+    border: '1px solid black',
+    padding: '2px',
+    marginBottom: '3px',
+    textAlign: 'center',
+    width: '6em',
+    cursor: 'pointer' }
+  for (var k in style) {
+    button.style[k] = style[k]
+  }
 }
