@@ -15,7 +15,7 @@ GoogleEngine.prototype.initialize = function() {
 }
 
 GoogleEngine.prototype.setOptions = function(options) {
-  if (options["zoomControl"]) { 
+  if (options["zoomControl"]) {
     this.map.addControl(new GSmallZoomControl3D())
   }
   if (options["moveControl"]) {
@@ -62,10 +62,6 @@ GoogleEngine.prototype.getZoom = function() {
 GoogleEngine.prototype.setZoom = function(zoom) {
   this.map.setZoom(zoom)
   return this
-}
-  
-GoogleEngine.prototype.convertGeopoint = function(geopoint) {
-  return new GLatLng(geopoint.lat, geopoint.lng)
 }
   
 
