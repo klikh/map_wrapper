@@ -1,5 +1,7 @@
 function Engine() {
-  this.switchControls = []  
+  this.switchControls = []
+  this.container = null
+  this.mapWrapper = null
 }
 
 Engine.prototype.addSwitchControl = function(switchControl) {

@@ -1,6 +1,4 @@
 function GoogleEngine() {
-  this.mapWrapper = null
-  this.div = null
   this.map = null
   this.codename = "google"
   this.maxZoom = 17
@@ -9,7 +7,7 @@ function GoogleEngine() {
 GoogleEngine.prototype = new Engine()
 
 GoogleEngine.prototype.initialize = function() {
-  this.map = new GMap2(this.div)
+  this.map = new GMap2(this.container)
   return this.map
 }
 

@@ -27,8 +27,8 @@ MapWrapper.prototype.DEFAULT_OPTIONS = {
 }
 
 MapWrapper.prototype.addEngine = function(engine) {
-  engine.div = this._makeMapDiv(engine.codename + "_id", this.divID)
   engine.mapWrapper = this
+  engine.container = this._makeMapDiv(engine.codename + "_id", this.divID)
   engine.initialize()
 
   // add this engine to the all switch controls of each of previously created engines
@@ -42,7 +42,7 @@ MapWrapper.prototype.addEngine = function(engine) {
   engine.setCenter(this.initialCenter)
   engine.setZoom(this.zoom)
   engine.setOptions(this.options)
-  engine.div.hide()         // NB: hide after initialization, otherwise GMap behaves buggy
+  engine.container.hide()
 }
 
 MapWrapper.prototype.selectEngine = function(engine) {
@@ -52,10 +52,10 @@ MapWrapper.prototype.selectEngine = function(engine) {
   if (this.activeEngine) { // there's no activeEngine initially
     engine.setCenter(this.activeEngine.getCenter())
     engine.setZoom(this.activeEngine.getZoom())
-    this.activeEngine.div.hide()
+    this.activeEngine.container.hide()
   }
   
-  engine.div.show()
+  engine.container.show()
   this.activeEngine = engine
 }
 

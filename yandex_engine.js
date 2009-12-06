@@ -1,6 +1,4 @@
 function YandexEngine() {
-  this.mapWrapper = null
-  this.div = null
   this.map = null
   this.maxZoom = 17
   this.codename = "yandex"
@@ -9,7 +7,7 @@ function YandexEngine() {
 YandexEngine.prototype = new Engine()
 
 YandexEngine.prototype.initialize = function() {
-  this.map = new YMaps.Map(this.div)
+  this.map = new YMaps.Map(this.container)
   return this.map
 }
   
