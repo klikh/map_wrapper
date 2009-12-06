@@ -1,4 +1,6 @@
-function Engine() {}
+function Engine() {
+  this.switchControls = []  
+}
 
 Engine.prototype.addSwitchControl = function(switchControl) {
   if (!switchControl) { return }
