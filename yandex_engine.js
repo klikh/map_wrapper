@@ -36,10 +36,12 @@ YandexEngine.prototype.getNativeControl = function() {
   
 YandexEngine.prototype.addSwitchControlOnMap = function(switchControl) {
   this.map.addControl(switchControl)
+  return this
 }
   
 YandexEngine.prototype.removeSwitchControlFromMap = function(switchControl) {
   this.map.removeControl(switchControl)
+  return this
 }
   
 YandexEngine.prototype.getCenter = function() {

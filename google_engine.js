@@ -36,10 +36,12 @@ GoogleEngine.prototype.getNativeControl = function() {
   
 GoogleEngine.prototype.addSwitchControlOnMap = function(switchControl) {
   this.map.addControl(switchControl)
+  return this
 }
   
 GoogleEngine.prototype.removeSwitchControlFromMap = function(switchControl) {
   this.map.removeControl(switchControl)
+  return this
 }
 
 GoogleEngine.prototype.getCenter = function() {
