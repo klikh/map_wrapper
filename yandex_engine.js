@@ -1,7 +1,8 @@
 function YandexEngine() {
   this.map = null
   this.maxZoom = 17
-  this.codename = "yandex"
+  this.codename = "Yandex"
+  this.icon = "http://maps.yandex.ru/favicon.ico"
 }
 
 YandexEngine.prototype = new Engine()
