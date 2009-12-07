@@ -1,6 +1,7 @@
 function GoogleEngine() {
   this.map = null
   this.codename = "google"
+  this.icon = "http://www.google.com/favicon.ico"
   this.maxZoom = 17
 }
 
