@@ -35,8 +35,8 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   
   var engineButton = document.createElement("div")
   this.element.appendChild(engineButton)
-
-  engineButton.className = "YMaps-button"
+  var BUTTON_DEFAULT_CLASS = "YMaps-button"
+  engineButton.className = BUTTON_DEFAULT_CLASS
   
   var left = document.createElement("i")
   left.className = "YMaps-button-c YMaps-button-l"
@@ -44,17 +44,18 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   
   var center = document.createElement("i")
   center.className = "YMaps-button-m YMaps-cursor-pointer"
-  var span = document.createElement("span")
-  span.className = "YMaps-button-caption"
+  var caption = document.createElement("span")
+  caption.className = "YMaps-button-caption"
   if (engine.icon) {
     var img = document.createElement("img")
     img.setAttribute("src", engine.icon)
     img.setAttribute("alt", "")
-    span.appendChild(img)
+    img.style.marginRight = "0.5em"
+    caption.appendChild(img)
   }
-  span.appendChild(document.createTextNode(engine.codename))
+  caption.appendChild(document.createTextNode(engine.codename))
   center.appendChild(document.createElement("i"))
-  center.appendChild(span)
+  center.appendChild(caption)
   
   var right = document.createElement("i")
   right.className = "YMaps-button-c YMaps-button-r"
@@ -64,6 +65,12 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   engineButton.appendChild(center)
   engineButton.appendChild(right)
   
+  engineButton.onmouseover = function() {
+    engineButton.className = BUTTON_DEFAULT_CLASS + " YMaps-button_hover"
+  }
+  engineButton.onmouseout = function() {
+    engineButton.className = BUTTON_DEFAULT_CLASS
+  }
   
   var _this = this
   engineButton.onclick  = function () {
