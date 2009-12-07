@@ -35,27 +35,38 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   
   var engineButton = document.createElement("div")
   this.element.appendChild(engineButton)
-  engineButton.appendChild(document.createTextNode(engine.codename))
 
-  this._setButtonStyle(engineButton)
+  engineButton.className = "YMaps-button"
+  
+  var left = document.createElement("i")
+  left.className = "YMaps-button-c YMaps-button-l"
+  left.appendChild(document.createElement("i"))
+  
+  var center = document.createElement("i")
+  center.className = "YMaps-button-m YMaps-cursor-pointer"
+  var span = document.createElement("span")
+  span.className = "YMaps-button-caption"
+  if (engine.icon) {
+    var img = document.createElement("img")
+    img.setAttribute("src", engine.icon)
+    img.setAttribute("alt", "")
+    span.appendChild(img)
+  }
+  span.appendChild(document.createTextNode(engine.codename))
+  center.appendChild(document.createElement("i"))
+  center.appendChild(span)
+  
+  var right = document.createElement("i")
+  right.className = "YMaps-button-c YMaps-button-r"
+  right.appendChild(document.createElement("i"))
+  
+  engineButton.appendChild(left)
+  engineButton.appendChild(center)
+  engineButton.appendChild(right)
+  
+  
   var _this = this
   engineButton.onclick  = function () {
     _this.mapWrapper.selectEngine(engine)
-  }
-}
-  
-YandexSwitchControl.prototype._setButtonStyle = function (button) {
-  style = {textDecoration: 'underline',
-           color: 'darkblue', 
-           backgroundColor: 'white', 
-           font: 'small Verdana',
-           border: '1px solid black',
-           padding: '2px',
-           marginBottom: '3px',
-           textAlign: 'center',
-           width: '6em',
-           cursor: 'pointer'}
-  for (var k in style) {
-    button.style[k] = style[k]
   }
 }
