@@ -33,10 +33,28 @@ YandexSwitchControl.prototype.onRemoveFromMap = function () {
 YandexSwitchControl.prototype.addEngine = function(engine) {
   if (this.engine == engine) { return } // don't add control to switch to this engine
   
-  var engineButton = document.createElement("div")
+  var content = document.createElement("span")
+  if (engine.icon) {
+    var img = document.createElement("img")
+    img.setAttribute("src", engine.icon)
+    img.setAttribute("alt", "")
+    img.style.marginRight = "0.5em"
+    content.appendChild(img)
+  }
+  content.appendChild(document.createTextNode(engine.codename))
+  var engineButton = this._makeYandexStyleButton(content)
   this.element.appendChild(engineButton)
-  var BUTTON_DEFAULT_CLASS = "YMaps-button"
-  engineButton.className = BUTTON_DEFAULT_CLASS
+
+  var _this = this
+  engineButton.onclick  = function () {
+    _this.mapWrapper.selectEngine(engine)
+  }
+}
+
+YandexSwitchControl.prototype._makeYandexStyleButton = function(content) {
+  var default_button_style = "YMaps-button"
+  var button = document.createElement("div")
+  button.className = default_button_style
   
   var left = document.createElement("i")
   left.className = "YMaps-button-c YMaps-button-l"
@@ -46,14 +64,7 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   center.className = "YMaps-button-m YMaps-cursor-pointer"
   var caption = document.createElement("span")
   caption.className = "YMaps-button-caption"
-  if (engine.icon) {
-    var img = document.createElement("img")
-    img.setAttribute("src", engine.icon)
-    img.setAttribute("alt", "")
-    img.style.marginRight = "0.5em"
-    caption.appendChild(img)
-  }
-  caption.appendChild(document.createTextNode(engine.codename))
+  caption.appendChild(content)
   center.appendChild(document.createElement("i"))
   center.appendChild(caption)
   
@@ -61,19 +72,15 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   right.className = "YMaps-button-c YMaps-button-r"
   right.appendChild(document.createElement("i"))
   
-  engineButton.appendChild(left)
-  engineButton.appendChild(center)
-  engineButton.appendChild(right)
+  button.appendChild(left)
+  button.appendChild(center)
+  button.appendChild(right)
   
-  engineButton.onmouseover = function() {
-    engineButton.className = BUTTON_DEFAULT_CLASS + " YMaps-button_hover"
+  button.onmouseover = function() {
+    button.className = default_button_style + " YMaps-button_hover"
   }
-  engineButton.onmouseout = function() {
-    engineButton.className = BUTTON_DEFAULT_CLASS
+  button.onmouseout = function() {
+    button.className = default_button_style
   }
-  
-  var _this = this
-  engineButton.onclick  = function () {
-    _this.mapWrapper.selectEngine(engine)
-  }
+  return button
 }
