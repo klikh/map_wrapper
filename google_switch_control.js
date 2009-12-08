@@ -2,7 +2,6 @@ function GoogleSwitchControl(engine) {
   this.engine = engine
   this.mapWrapper = this.engine.mapWrapper
   this.container = document.createElement("div")
-  this.engineCount = 0
 }
 
 GoogleSwitchControl.prototype = new GControl()
@@ -38,8 +37,6 @@ GoogleSwitchControl.prototype.addEngine = function(engine) {
   GEvent.addDomListener(engineButton, "click", function() {
     _this.mapWrapper.selectEngine(engine)
   });
-  
-  this.engineCount++
 }
 
 GoogleSwitchControl.prototype.getDefaultPosition = function() {
