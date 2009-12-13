@@ -74,7 +74,7 @@ GoogleSwitchControl.prototype._makeGoogleStyleButton = function(content) {
     backgroundColor: 'white',
     font: 'Arial',
     border: '1px solid black',
-    padding: '2px',
+    padding: '3px',
     textAlign: 'center',
     cursor: 'pointer' }
   for (var k in style) {
