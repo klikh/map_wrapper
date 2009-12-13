@@ -2,6 +2,13 @@ function GoogleSwitchControl(engine) {
   this.engine = engine
   this.mapWrapper = this.engine.mapWrapper
   this.container = document.createElement("div")
+  
+  this.mainButton = document.createElement("div")
+  this.otherButtons = document.createElement("div")
+  this.container.appendChild(this.mainButton)
+  this.container.appendChild(this.otherButtons)
+  
+  this.engineCount = 0
 }
 
 GoogleSwitchControl.prototype = new GControl()
@@ -30,10 +37,25 @@ GoogleSwitchControl.prototype.addEngine = function(engine) {
     content.appendChild(img)
   }
   content.appendChild(document.createTextNode(engine.codename))
-
   var engineButton = this._makeGoogleStyleButton(content)
-  this.container.appendChild(engineButton);
+  
   var _this = this
+  
+  if (this.engineCount == 0) {
+    this.mainButton.appendChild(engineButton)
+  } else {
+    this.otherButtons.appendChild(engineButton)
+    this.otherButtons.style.visibility = "hidden"
+    this.container.onmouseover = function() {
+      _this.otherButtons.style.visibility = "visible"
+    }
+    this.container.onmouseout = function() {
+      _this.otherButtons.style.visibility = "hidden"
+    }
+  }
+  
+  this.engineCount++
+
   GEvent.addDomListener(engineButton, "click", function() {
     _this.mapWrapper.selectEngine(engine)
   });
@@ -48,12 +70,11 @@ GoogleSwitchControl.prototype._makeGoogleStyleButton = function(content) {
   var style = { 
     marginBottom: '2px',
     whiteSpace: 'nowrap',
-    color: 'black', 
-    backgroundColor: 'white', 
+    color: 'black',
+    backgroundColor: 'white',
     font: 'Arial',
     border: '1px solid black',
-    paddingLeft: '0.5em',
-    paddingRight: '0.5em',
+    padding: '2px',
     textAlign: 'center',
     cursor: 'pointer' }
   for (var k in style) {
