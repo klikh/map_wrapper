@@ -1,9 +1,17 @@
 function YandexSwitchControl(engine) {
   this.engine = engine
   this.mapWrapper = this.engine.mapWrapper
-  this.element = document.createElement("div")
-  this.element.style.position = 'absolute'
-  this.element.style.zIndex = '1000'
+  
+  this.container = document.createElement("div")
+  this.container.style.position = 'absolute'
+  this.container.style.zIndex = '1000'
+  
+  this.mainButton = document.createElement("div")
+  this.otherButtons = document.createElement("div")
+  this.container.appendChild(this.mainButton)
+  this.container.appendChild(this.otherButtons)
+  
+  this.engineCount = 0
 }
 
 YandexSwitchControl.prototype.onAddToMap = function (map, position) {
@@ -19,13 +27,13 @@ YandexSwitchControl.prototype.onAddToMap = function (map, position) {
     func(i)
   }
     
-  this.position.apply(this.element)
-  this.map.getContainer().appendChild(this.element)
+  this.position.apply(this.container)
+  this.map.getContainer().appendChild(this.container)
 }
   
 YandexSwitchControl.prototype.onRemoveFromMap = function () {
-  if (this.element.parentNode) {
-    this.map.getContainer().removeChild(this.element);
+  if (this.container.parentNode) {
+    this.map.getContainer().removeChild(this.container);
   }
   this.map = null;
 }
@@ -43,18 +51,33 @@ YandexSwitchControl.prototype.addEngine = function(engine) {
   }
   content.appendChild(document.createTextNode(engine.codename))
   var engineButton = this._makeYandexStyleButton(content)
-  this.element.appendChild(engineButton)
-
+  
   var _this = this
+  if (this.engineCount == 0) {
+    this.mainButton.appendChild(engineButton)
+  } else {
+    this.otherButtons.appendChild(engineButton)
+    this.otherButtons.style.visibility = "hidden"
+    this.container.onmouseover = function() {
+      _this.otherButtons.style.visibility = "visible"
+    }
+    this.container.onmouseout = function() {
+      _this.otherButtons.style.visibility = "hidden"
+    }
+  }
+
   engineButton.onclick  = function () {
     _this.mapWrapper.selectEngine(engine)
   }
+  this.engineCount++
 }
 
 YandexSwitchControl.prototype._makeYandexStyleButton = function(content) {
   var default_button_style = "YMaps-button"
   var button = document.createElement("div")
   button.className = default_button_style
+  button.style.clear = "both"  // align other buttons vertically
+  button.style.margin = "2px"
   
   var left = document.createElement("i")
   left.className = "YMaps-button-c YMaps-button-l"
