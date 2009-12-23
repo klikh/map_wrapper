@@ -5,6 +5,7 @@ FEATURE REQUESTS:
 * addEngine and selectEngine not only by the Engine object, but also but its codename: mw.selectEngine('yandex')
 * Rename all really private variables (which won't be needed by Engine implementators or else) to something less obvious: add "_" before the name.
 * Add event: selecting another engine.
+* Zoom: don't pass zoom value directly: convert it using the maxZoom property.
 
 BUGS:
 
