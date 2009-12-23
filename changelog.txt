@@ -1,3 +1,8 @@
+=== 0.6 ===
+* Massive refactoring, common format for engines, the Engine parent class holding common functionality. Engines are almost ready for extensibility.
+* Good looking Google and Yandex default switch controls.
+* Ability to use custom and multiple switch controls.
+
 === 0.5 ===
 Initial release.
 * MapWrapper can hold any number of engines (possibly customly implemented).

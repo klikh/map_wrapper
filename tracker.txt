@@ -7,7 +7,8 @@ FEATURE REQUESTS:
 * Add event: selecting another engine.
 * Zoom: don't pass zoom value directly: convert it using the maxZoom property.
 
-BUGS:
+BUGS AND CLEANINGS:
+* Remove engine_interface.js - but preserve comments in engine.js.
 
 DONE:
 0.5 - Make MapWrapper interface more expandable to let user select its own engine.
