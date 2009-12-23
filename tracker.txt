@@ -3,6 +3,8 @@ FEATURE REQUESTS:
 * Add ability to customize switch controls: style, position, using own implementation.
 * Add wrapper to handle map events.
 * addEngine and selectEngine not only by the Engine object, but also but its codename: mw.selectEngine('yandex')
+* Rename all really private variables (which won't be needed by Engine implementators or else) to something less obvious: add "_" before the name.
+* Add event: selecting another engine.
 
 BUGS:
 
