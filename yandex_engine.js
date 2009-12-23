@@ -7,8 +7,8 @@ function YandexEngine() {
 
 YandexEngine.prototype = new Engine()
 
-YandexEngine.prototype.initialize = function() {
-  this.map = new YMaps.Map(this.container)
+YandexEngine.prototype.initialize = function(container) {
+  this.map = new YMaps.Map(container)
   return this.map
 }
   

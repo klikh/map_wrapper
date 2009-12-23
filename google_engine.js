@@ -7,8 +7,8 @@ function GoogleEngine() {
 
 GoogleEngine.prototype = new Engine()
 
-GoogleEngine.prototype.initialize = function() {
-  this.map = new GMap2(this.container)
+GoogleEngine.prototype.initialize = function(container) {
+  this.map = new GMap2(container)
   return this.map
 }
 

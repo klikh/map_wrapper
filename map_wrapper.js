@@ -29,7 +29,7 @@ MapWrapper.prototype.DEFAULT_OPTIONS = {
 MapWrapper.prototype.addEngine = function(engine) {
   engine.mapWrapper = this
   engine.container = this._makeMapDiv(engine.codename + "_id", this.divID)
-  engine.initialize()
+  engine.initialize(engine.container)
   
   engine.setCenter(this.initialCenter)
   engine.setZoom(this.zoom)

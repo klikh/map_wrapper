@@ -1,11 +1,8 @@
-function Engine() {
-  this.switchControls = []
-  this.container = null
-  this.mapWrapper = null
-}
+function Engine() {}
 
 Engine.prototype.addSwitchControl = function(switchControl) {
   if (!switchControl) { return }
+  if (!this.switchControls) { this.switchControls = [] }
   if (this.switchControls.contains(switchControl)) { return }
   
   this.switchControls.push(switchControl)
