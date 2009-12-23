@@ -30,6 +30,11 @@ MapWrapper.prototype.addEngine = function(engine) {
   engine.mapWrapper = this
   engine.container = this._makeMapDiv(engine.codename + "_id", this.divID)
   engine.initialize()
+  
+  engine.setCenter(this.initialCenter)
+  engine.setZoom(this.zoom)
+  engine.setOptions(this.options)
+  engine.container.hide()
 
   // add this engine to the all switch controls of each of previously created engines
   for (var i = 0; i < this.engines.length; i++) {
@@ -39,10 +44,6 @@ MapWrapper.prototype.addEngine = function(engine) {
   }
   
   this.engines.push(engine)
-  engine.setCenter(this.initialCenter)
-  engine.setZoom(this.zoom)
-  engine.setOptions(this.options)
-  engine.container.hide()
 }
 
 MapWrapper.prototype.selectEngine = function(engine) {
